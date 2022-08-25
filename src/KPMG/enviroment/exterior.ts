@@ -9,6 +9,7 @@ import { movePlayerToVector3 } from "../utils/movePlayerToVector3"
 class ExteriorInstance extends Scene {
 
     private exteriorEntity: Entity = new Entity()
+    private exteriorInnerEntity: Entity = new Entity()
 
     private exteriorDoor1: Dash_TriggerZone = new Dash_TriggerZone()
     private exteriorDoor2: Dash_TriggerZone = new Dash_TriggerZone()
@@ -25,9 +26,12 @@ class ExteriorInstance extends Scene {
         this.addComponent(new GLTFShape('models/KPMG_exterior_collider.glb'))
         this.addComponent(new Transform({ position: new Vector3(0, 0, 0) }))
         this.exteriorEntity.addComponent(new GLTFShape('models/KPMG_exterior_Geo1B.glb'))
+        this.exteriorInnerEntity.addComponent(new GLTFShape('models/KPMG_exterior_innerGeo.glb'))
+
 
 
         this.exteriorEntity.setParent(this)
+        this.exteriorInnerEntity.setParent(this)
 
 
         this.exteriorDoorPortal1()
