@@ -9,7 +9,6 @@ import { movePlayerToVector3 } from "../utils/movePlayerToVector3"
 class ExteriorInstance extends Scene {
 
     private exteriorEntity: Entity = new Entity()
-    private exteriorXport: Entity = new Entity()
 
     private exteriorDoor1: Dash_TriggerZone = new Dash_TriggerZone()
     private exteriorDoor2: Dash_TriggerZone = new Dash_TriggerZone()
@@ -26,11 +25,9 @@ class ExteriorInstance extends Scene {
         this.addComponent(new GLTFShape('models/KPMG_exterior_collider.glb'))
         this.addComponent(new Transform({ position: new Vector3(0, 0, 0) }))
         this.exteriorEntity.addComponent(new GLTFShape('models/KPMG_exterior_Geo1B.glb'))
-        this.exteriorXport.addComponent(new GLTFShape('models/KPMG_exterior_XportCollider.glb'))
 
 
         this.exteriorEntity.setParent(this)
-        this.exteriorXport.setParent(this)
 
 
         this.exteriorDoorPortal1()
@@ -50,7 +47,7 @@ class ExteriorInstance extends Scene {
             scale: new Vector3(0.5, 5, 3),
         }))
         this.exteriorDoor1.setParent(this)
-        this.exteriorDoor1.enableDebug() // this.exteriorDoor1.enable() 
+        this.exteriorDoor1.enable() // this.exteriorDoor1.enableDebug() 
         this.exteriorDoor1.onEnter = () => {
             log('User has entered the zone')
             this.enter(
@@ -66,7 +63,7 @@ class ExteriorInstance extends Scene {
             scale: new Vector3(0.5, 5, 3),
         }))
         this.exteriorDoor2.setParent(this)
-        this.exteriorDoor2.enableDebug() // this.exteriorDoor2.enable()
+        this.exteriorDoor2.enable() // this.exteriorDoor2.enableDebug()
         this.exteriorDoor2.onEnter = () => {
             log('User has entered the zone')
             this.enter(
@@ -81,7 +78,7 @@ class ExteriorInstance extends Scene {
             scale: new Vector3(3, 5, 0.5),
         }))
         this.exteriorDoor3.setParent(this)
-        this.exteriorDoor3.enableDebug() // this.exteriorDoor3.enable()
+        this.exteriorDoor3.enable() // this.exteriorDoor3.enableDebugDebug()
         this.exteriorDoor3.onEnter = () => {
             log('User has entered the zone')
             this.enter(
@@ -96,7 +93,7 @@ class ExteriorInstance extends Scene {
             scale: new Vector3(3, 5, 0.5),
         }))
         this.exteriorDoor4.setParent(this)
-        this.exteriorDoor4.enableDebug() // this.exteriorDoor4.enable()
+        this.exteriorDoor4.enable() // this.exteriorDoor4.enableDebug()
         this.exteriorDoor4.onEnter = () => {
             log('User has entered the zone')
             this.enter(
@@ -111,7 +108,7 @@ class ExteriorInstance extends Scene {
             scale: new Vector3(0.5, 5, 3),
         }))
         this.exteriorDoor5.setParent(this)
-        this.exteriorDoor5.enableDebug() // this.exteriorDoor5.enable()
+        this.exteriorDoor5.enable() // this.exteriorDoor5.enableDebug()
         this.exteriorDoor5.onEnter = () => {
             log('User has entered the zone')
             this.enter(
@@ -126,7 +123,7 @@ class ExteriorInstance extends Scene {
             scale: new Vector3(0.5, 5, 3),
         }))
         this.exteriorDoor6.setParent(this)
-        this.exteriorDoor6.enableDebug() // this.exteriorDoor6.enable()
+        this.exteriorDoor6.enable() // this.exteriorDoor6.enableDebug()
         this.exteriorDoor6.onEnter = () => {
             log('User has entered the zone')
             this.enter(
@@ -142,7 +139,7 @@ class ExteriorInstance extends Scene {
             scale: new Vector3(3, 5, 0.5),
         }))
         this.exteriorDoor7.setParent(this)
-        this.exteriorDoor7.enableDebug() // this.exteriorDoor7.enable()
+        this.exteriorDoor7.enable() // this.exteriorDoor7.enableDebug()
         this.exteriorDoor7.onEnter = () => {
             log('User has entered the zone')
             this.enter(
@@ -157,7 +154,7 @@ class ExteriorInstance extends Scene {
             scale: new Vector3(3, 5, 0.5),
         }))
         this.exteriorDoor8.setParent(this)
-        this.exteriorDoor8.enableDebug() // this.exteriorDoor8.enable()
+        this.exteriorDoor8.enable() // this.exteriorDoor8.enableDebug()
         this.exteriorDoor8.onEnter = () => {
             log('User has entered the zone')
             this.enter(
