@@ -1,32 +1,30 @@
-// export class ExitPlane extends Entity {
-//     private shape: PlaneShape = new PlaneShape()
-//     public onClick: () => void = () => {}
-//     private distance: number = 5
-//     private message: string = "Interact"
+import * as utils from '@dcl/ecs-scene-utils'
+export class ExitPlane extends Entity {
+    private shape: PlaneShape = new PlaneShape()
+    public onClick: () => void = () => {}
+    public onCameraEnter : () => void = () => {}
+    private distance: number = 5
+    private message: string = "Interact"
+    private triggerBox = new utils.TriggerBoxShape()
 
-//     constructor(){
-//         super()
-//         this.addComponent(new Transform())
-//         this.addComponent(this.shape)
-//         this.updateOnPointerDown()
-//     }
+    constructor(){
+        super()
+        this.addComponent(new Transform())
+        this.addComponent(this.shape)
+        this.updateOnTrigger()
+    }
 
-//     private updateOnPointerDown(){
-//         this.addComponentOrReplace(new OnPointerDown(() => {
-//             this.onClick()
-//         },{
-//             hoverText: this.message,
-//             distance: this.distance,
-//         }))
-//     }
-
-//     setMessage(message: string){
-//         this.message = message
-//         this.updateOnPointerDown()
-//     }
-
-//     setDistance(distance: number){
-//         this.distance = distance
-//         this.updateOnPointerDown()
-//     }
-// }
+    private updateOnTrigger(){
+        this.addComponentOrReplace(
+            new utils.TriggerComponent(
+              this.triggerBox, //shape
+              {
+                onCameraEnter : () => {
+                log('triggered!')
+                this.onCameraEnter()
+                }
+              }
+            )
+          )
+    }
+}

@@ -13,10 +13,6 @@ export class SceneControllerInstance {
         this.scenes.set(location, entity)
     }
 
-    preload() {
-        
-    }
-
     loadScene(location: SceneLocations) {
         this.scenes.forEach((scene: Scene) => {
             if (scene.location == location) {

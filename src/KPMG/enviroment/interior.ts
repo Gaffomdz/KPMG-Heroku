@@ -1,35 +1,52 @@
-import { Dash_TriggerZone } from "dcldash"
+import { Dash_Material, Dash_Tweaker, Dash_Wait } from "dcldash";
 import { Scene } from "../congif/core/scene"
 import { SceneController } from "../congif/core/sceneController"
 import { SceneLocations } from "../congif/enums"
+import { ExitPlane } from "../utils/exitPlane"
 import { movePlayerToVector3 } from "../utils/movePlayerToVector3"
 
+let doornumber = 0
 class InteriorInstance extends Scene {
+    //environment
+    private interior1Entity = new Entity()
+    private interior2Entity = new Entity()
+    private interiorBankDoor = new Entity()
+    private interiorDoorFx = new Entity()
+    private interiorEventDoor = new Entity()
+    private interiorRetailDoor = new Entity()
+    //Exit Doors
+    private interiorDoor1 = new ExitPlane()
+    private interiorDoor2 = new ExitPlane()
+    private interiorDoor3 = new ExitPlane()
+    private interiorDoor4 = new ExitPlane()
+    private interiorDoor5 = new ExitPlane()
+    private interiorDoor6 = new ExitPlane()
+    private interiorDoor7 = new ExitPlane()
+    private interiorDoor8 = new ExitPlane()
+    //BankDoors
+    private bankDoor = new ExitPlane()
+    private eventSpaceDoor = new ExitPlane()
 
-    private interior1Entity: Entity = new Entity()
-    private interior2Entity: Entity = new Entity()
-
-    private interiorDoor1: Dash_TriggerZone = new Dash_TriggerZone()
-    private interiorDoor2: Dash_TriggerZone = new Dash_TriggerZone()
-    private interiorDoor3: Dash_TriggerZone = new Dash_TriggerZone()
-    private interiorDoor4: Dash_TriggerZone = new Dash_TriggerZone()
-    private interiorDoor5: Dash_TriggerZone = new Dash_TriggerZone()
-    private interiorDoor6: Dash_TriggerZone = new Dash_TriggerZone()
-    private interiorDoor7: Dash_TriggerZone = new Dash_TriggerZone()
-    private interiorDoor8: Dash_TriggerZone = new Dash_TriggerZone()
 
 
 
     constructor() {
         super(SceneLocations.Interior)
-        this.addComponent(new GLTFShape('models/KPMG_interior_collider.glb'))
-        this.addComponent(new Transform({ position: new Vector3(0, 0, 0) }))
-        this.interior1Entity.addComponent(new GLTFShape('models/KPMG_interior_geo1.glb'))
-        this.interior2Entity.addComponent(new GLTFShape('models/KPMG_interior_geo2.glb'))
+        this.addComponent(new GLTFShape('models/interior/KPMG_interior_collider.glb'))
+        this.interior1Entity.addComponent(new GLTFShape('models/interior/KPMG_interior_geo1.glb'))
+        this.interior2Entity.addComponent(new GLTFShape('models/interior/KPMG_interior_geo2.glb'))
+        this.interiorBankDoor.addComponent(new GLTFShape('models/interior/KPMG_Interior_bank_door.glb'))
+        this.interiorDoorFx.addComponent(new GLTFShape('models/interior/KPMG_Interior_door_fx.glb'))
+        this.interiorEventDoor.addComponent(new GLTFShape('models/interior/KPMG_Interior_event_door.glb'))
+        this.interiorRetailDoor.addComponent(new GLTFShape('models/interior/KPMG_Interior_retail_door.glb'))
 
 
         this.interior1Entity.setParent(this)
         this.interior2Entity.setParent(this)
+        this.interiorBankDoor.setParent(this)
+        this.interiorDoorFx.setParent(this)
+        this.interiorEventDoor.setParent(this)
+        this.interiorRetailDoor.setParent(this)
 
         this.interiorDoorPortal1()
         this.interiorDoorPortal2()
@@ -39,151 +56,229 @@ class InteriorInstance extends Scene {
         this.interiorDoorPortal6()
         this.interiorDoorPortal7()
         this.interiorDoorPortal8()
+        this.bankDoorPortal()
+        this.eventSpacePortal()
     }
-    interiorDoorPortal1() {
-        this.interiorDoor1.addComponent(new Transform({
-            position: new Vector3(24.27, 0.88, 2.53),
-            scale: new Vector3(3.8, 5, 0.5),
-            rotation: new Quaternion(0, 0, 0),
-        }))
-        this.interiorDoor1.setParent(this)
-        this.interiorDoor1.enable()
-        this.interiorDoor1.onEnter = () => {
-            log('User has entered the zone')
-            this.enter(
-                new Vector3(32.00, 1.08, 2.29),
-                new Vector3(32.15, 1.33, 4.72),
-            )
-        }
+    preload() {
+        engine.addEntity(this)
+        log('preloaded Interior!')
+        this.addComponent(new Transform({ scale: new Vector3(0.0001, 0.0001, 0.0001) }))
+        Dash_Wait(() => {
+            engine.removeEntity(this)
+            log('Interior Preload Removed.')
+            this.removeComponent(Transform)
+            this.addComponent(new Transform({
+                position: new Vector3(0, 0, 0),
+                scale: new Vector3(1, 1, 1)
+            }))
+        }, 5)
+    }
 
+    interiorDoorPortal1() {
+        [this.interiorDoor1,
+        ].forEach(ExitPlane => {
+            ExitPlane.addComponent(Dash_Material.transparent())
+            ExitPlane.setParent(this)
+        })
+
+        this.interiorDoor1.addComponentOrReplace(new Transform({
+            position: new Vector3(24.27, 0.88, 2.53),
+            scale: new Vector3(4.000, 4.000, 5.000),
+            rotation: new Quaternion().setEuler(1.000, 0.000, 2.000),
+        }))
+        this.interiorDoor1.onCameraEnter = () => this.exit(
+            new Vector3(44.50, 1.28, 16.07),
+            new Vector3(32.15, 1.33, 4.72),
+            doornumber = 1
+        )
     }
     interiorDoorPortal2() {
-        this.interiorDoor2.addComponent(new Transform({
-            position: new Vector3(8.00, 0.98, 8.19),
-            scale: new Vector3(3.9, 5, 0.5),
-            rotation: new Quaternion(0, 0.5, 0),
-        }))
-        this.interiorDoor2.setParent(this)
-        this.interiorDoor2.enable()
-        this.interiorDoor2.onEnter = () => {
-            log('User has entered the zone')
-            this.enter(
-                new Vector3(32.00, 1.08, 2.29),
-                new Vector3(32.15, 1.33, 4.72),
-            )
-        }
+        [this.interiorDoor2,
+        ].forEach(ExitPlane => {
+            ExitPlane.addComponent(Dash_Material.transparent())
+            ExitPlane.setParent(this)
+        })
 
+        this.interiorDoor2.addComponentOrReplace(new Transform({
+            position: new Vector3(7.8, 0.98, 7.79),
+            scale: new Vector3(4.000, 4.000, 5.000),
+            rotation: new Quaternion().setEuler(2.000, 220.000, 1.000),
+        }))
+        this.interiorDoor2.onCameraEnter = () => this.exit(
+            new Vector3(41.44, 1.68, 31.64),
+            new Vector3(48.23, 0.88, 34.65),
+            doornumber = 2
+        )
     }
     interiorDoorPortal3() {
-        this.interiorDoor3.addComponent(new Transform({
-            position: new Vector3(1.52, 0.98, 24.31),
-            scale: new Vector3(0.5, 5, 4.5),
-            rotation: new Quaternion(0, 0, 0),
-        }))
-        this.interiorDoor3.setParent(this)
-        this.interiorDoor3.enable()
-        this.interiorDoor3.onEnter = () => {
-            log('User has entered the zone')
-            this.enter(
-                new Vector3(32.00, 1.08, 2.29),
-                new Vector3(32.15, 1.33, 4.72),
-            )
-        }
+        [this.interiorDoor3,
+        ].forEach(ExitPlane => {
+            ExitPlane.addComponent(Dash_Material.transparent())
+            ExitPlane.setParent(this)
+        })
 
+        this.interiorDoor3.addComponentOrReplace(new Transform({
+            position: new Vector3(1.50, 0.98, 24.02),
+            scale: new Vector3(4.000, 4.000, 5.000),
+            rotation: new Quaternion().setEuler(2.000, 270.000, 1.000),
+        }))
+        this.interiorDoor3.onCameraEnter = () => this.exit(
+            new Vector3(32.00, 1.08, 2.29),
+            new Vector3(32.15, 1.33, 4.72),
+            doornumber = 3
+        )
     }
     interiorDoorPortal4() {
-        this.interiorDoor4.addComponent(new Transform({
-            position: new Vector3(7.99, 0.98, 39.82),
-            scale: new Vector3(1, 5, 4.5),
-            rotation: new Quaternion(0, 0.5000, 0),
-        }))
-        this.interiorDoor4.setParent(this)
-        this.interiorDoor4.enable()
-        this.interiorDoor4.onEnter = () => {
-            log('User has entered the zone')
-            this.enter(
-                new Vector3(32.00, 1.08, 2.29),
-                new Vector3(32.15, 1.33, 4.72),
-            )
-        }
+        [this.interiorDoor4,
+        ].forEach(ExitPlane => {
+            ExitPlane.addComponent(Dash_Material.transparent())
+            ExitPlane.setParent(this)
+        })
 
+        this.interiorDoor4.addComponentOrReplace(new Transform({
+            position: new Vector3(8.32, 0.98, 39.5),
+            scale: new Vector3(4.000, 4.000, 5.000),
+            rotation: new Quaternion().setEuler(2.000, 310.000, 1.000),
+        }))
+        this.interiorDoor4.onCameraEnter = () => this.exit(
+            new Vector3(32.00, 1.08, 2.29),
+            new Vector3(32.15, 1.33, 4.72),
+            doornumber = 4
+        )
     }
     interiorDoorPortal5() {
-        this.interiorDoor5.addComponent(new Transform({
-            position: new Vector3(24.37, 0.98, 46.49),
-            scale: new Vector3(1, 5, 4.5),
-            rotation: new Quaternion(0, 1, 0),
-        }))
-        this.interiorDoor5.setParent(this)
-        this.interiorDoor5.enable()
-        this.interiorDoor5.onEnter = () => {
-            log('User has entered the zone')
-            this.enter(
-                new Vector3(32.00, 1.08, 2.29),
-                new Vector3(32.15, 1.33, 4.72),
-            )
-        }
+        [this.interiorDoor5,
+        ].forEach(ExitPlane => {
+            ExitPlane.addComponent(Dash_Material.transparent())
+            ExitPlane.setParent(this)
+        })
 
+        this.interiorDoor5.addComponentOrReplace(new Transform({
+            position: new Vector3(23.87, 0.98, 46.29),
+            scale: new Vector3(4.000, 4.000, 5.000),
+            rotation: new Quaternion().setEuler(2.000, 360.000, 1.000),
+        }))
+        this.interiorDoor5.onCameraEnter = () => this.exit(
+            new Vector3(44.58, 1.28, 32.50),
+            new Vector3(44.58, 1.28, 32.50),
+            doornumber = 5
+        )
     }
     interiorDoorPortal6() {
-        this.interiorDoor6.addComponent(new Transform({
-            position: new Vector3(39.85, 0.98, 40.08),
-            scale: new Vector3(1, 5, 4.5),
-            rotation: new Quaternion(0, 1.5, 0),
-        }))
-        this.interiorDoor6.setParent(this)
-        this.interiorDoor6.enable()
-        this.interiorDoor6.onEnter = () => {
-            log('User has entered the zone')
-            this.enter(
-                new Vector3(32.00, 1.08, 2.29),
-                new Vector3(32.15, 1.33, 4.72),
-            )
-        }
+        [this.interiorDoor6,
+        ].forEach(ExitPlane => {
+            ExitPlane.addComponent(Dash_Material.transparent())
+            ExitPlane.setParent(this)
+        })
 
+        this.interiorDoor6.addComponentOrReplace(new Transform({
+            position: new Vector3(39.8, 0.98, 39.56),
+            scale: new Vector3(4.000, 4.000, 5.000),
+            rotation: new Quaternion().setEuler(2.000, 50.000, 1.000),
+        }))
+        this.interiorDoor6.onCameraEnter = () => this.exit(
+            new Vector3(32.00, 1.08, 2.29),
+            new Vector3(32.15, 1.33, 4.72),
+            doornumber = 6
+        )
     }
     interiorDoorPortal7() {
-        this.interiorDoor7.addComponent(new Transform({
-            position: new Vector3(46.47,0.98,23.67),
-            scale: new Vector3(1, 5, 4.5),
-            rotation: new Quaternion(0, 0, 0),
-        }))
-        this.interiorDoor7.setParent(this)
-        this.interiorDoor7.enable()
-        this.interiorDoor7.onEnter = () => {
-            log('User has entered the zone')
-            this.enter(
-                new Vector3(32.00, 1.08, 2.29),
-                new Vector3(32.15, 1.33, 4.72),
-            )
-        }
+        [this.interiorDoor7,
+        ].forEach(ExitPlane => {
+            ExitPlane.addComponent(Dash_Material.transparent())
+            ExitPlane.setParent(this)
+        })
 
+        this.interiorDoor7.addComponentOrReplace(new Transform({
+            position: new Vector3(46.50, 0.98, 23.98),
+            scale: new Vector3(4.000, 4.000, 5.000),
+            rotation: new Quaternion().setEuler(2.000, 82.000, 1.000),
+        }))
+        this.interiorDoor7.onCameraEnter = () => this.exit(
+            new Vector3(32.00, 1.08, 2.29),
+            new Vector3(32.15, 1.33, 4.72),
+            doornumber = 7
+        )
     }
     interiorDoorPortal8() {
-        this.interiorDoor8.addComponent(new Transform({
-            position: new Vector3(40,0.98,7.53),
-            scale: new Vector3(1, 5, 4.5),
-            rotation: new Quaternion(0, 0.5, 0),
+        [this.interiorDoor8,
+        ].forEach(ExitPlane => {
+            ExitPlane.addComponent(Dash_Material.transparent())
+            ExitPlane.setParent(this)
+        })
+
+        this.interiorDoor8.addComponentOrReplace(new Transform({
+            position: new Vector3(39, 0.98, 8.6),
+            scale: new Vector3(4.000, 4.000, 5.000),
+            rotation: new Quaternion().setEuler(2.000, 130.000, 1.000),
         }))
-        this.interiorDoor8.setParent(this)
-        this.interiorDoor8.enable()
-        this.interiorDoor8.onEnter = () => {
-            log('User has entered the zone')
-            this.enter(
-                new Vector3(32.00, 1.08, 2.29),
-                new Vector3(32.15, 1.33, 4.72),
-            )
-        }
+        this.interiorDoor8.onCameraEnter = () => this.exit(
+            new Vector3(32.00, 1.08, 2.29),
+            new Vector3(32.15, 1.33, 4.72),
+            doornumber = 8
+        ), log('puerta 8 despues de la coma')
+
 
     }
-    enter(position: Vector3, direction: Vector3) {
+    bankDoorPortal() {
+        [this.bankDoor,
+        ].forEach(ExitPlane => {
+            ExitPlane.addComponent(Dash_Material.transparent())
+            ExitPlane.setParent(this)
+        })
+
+        this.bankDoor.addComponentOrReplace(new Transform({
+            position: new Vector3(14.630, 1.980, 2.620),
+            scale: new Vector3(4.000, 4.000, 5.000),
+            rotation: new Quaternion().setEuler(360.000, 212.000, 1.000),
+        }))
+        this.bankDoor.onCameraEnter = () => this.enterBank(
+            new Vector3(15.23,2.30,74.34),
+            new Vector3(16.34,2,48.44),
+        )
+
+
+    }
+    eventSpacePortal() {
+        [this.eventSpaceDoor,
+        ].forEach(ExitPlane => {
+            ExitPlane.setParent(this)
+            ExitPlane.addComponent(Dash_Material.transparent())
+        })
+        this.eventSpaceDoor.addComponentOrReplace(new Transform({
+            position: new Vector3(45.530, 1.980, 32.820),
+            scale: new Vector3(3.000, 5.000, 5.000),
+            rotation: new Quaternion().setEuler(360.000, 257.000, 1.000),
+        }))
+        this.eventSpaceDoor.onCameraEnter = () => this.enterEventSpace(
+            new Vector3(16.71,1.28,10.06),
+            new Vector3(15.92,1.28,19.20),
+        )
+    }
+
+
+
+    exit(position: Vector3, direction: Vector3, doornumber: number) {
         SceneController.loadScene(SceneLocations.Exterior)
+        movePlayerToVector3(position, direction)
+        log(doornumber, ' es la puerta')
+    }
+    enterBank(position: Vector3, direction: Vector3) {
+        SceneController.loadScene(SceneLocations.Bank)
+        movePlayerToVector3(position, direction)
+    }
+    enterEventSpace(position: Vector3, direction: Vector3) {
+        SceneController.loadScene(SceneLocations.Event)
         movePlayerToVector3(position, direction)
     }
 
 }
 
 export const Interior = new InteriorInstance()
+
+
+
+
 
 
 
