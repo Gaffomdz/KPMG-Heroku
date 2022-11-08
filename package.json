@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@dcl/eslint-config": "^1.0.1",
-    "decentraland-ecs": "latest"
+    "decentraland-ecs": "^6.11.10"
   },
   "engines": {
     "node": ">=14.0.0",
@@ -22,19 +22,22 @@
   },
   "dependencies": {
     "@dcl/ecs-scene-utils": "^1.7.5",
+    "@dcl/npc-scene-utils": "^1.4.0",
     "@dcl/ui-scene-utils": "^1.8.4",
     "dash": "^3.22.13",
-    "dcldash": "^0.0.33",
-    "decentraland": "^3.11.2"
+    "dcldash": "^0.0.34-20220711040044.commit-818b362",
+    "decentraland": "^3.12.3"
   },
   "bundledDependencies": [
     "@dcl/ecs-scene-utils",
     "@dcl/ui-scene-utils",
-    "dcldash"
+    "dcldash",
+    "@dcl/npc-scene-utils"
   ],
   "bundleDependencies": [
     "@dcl/ecs-scene-utils",
     "@dcl/ui-scene-utils",
-    "dcldash"
+    "dcldash",
+    "@dcl/npc-scene-utils"
   ]
 }

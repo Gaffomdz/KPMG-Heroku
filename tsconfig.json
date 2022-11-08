@@ -15,6 +15,9 @@
       "dcldash": [
         "node_modules/dcldash/dist/index.d.ts",
         "node_modules\\dcldash\\dist\\index.d.ts"
+      ],
+      "@dcl/npc-scene-utils": [
+        "node_modules/@dcl/npc-scene-utils/dist/index.d.ts"
       ]
     },
     "baseUrl": "."
