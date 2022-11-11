@@ -1,9 +1,13 @@
-import { SceneController } from "./KPMG/congif/core/sceneController"
-import { SceneLocations } from "./KPMG/congif/enums"
-import { SceneEntities } from "./KPMG/congif/scenes"
-import { Bank } from "./KPMG/enviroment/bank"
-import { Event } from "./KPMG/enviroment/eventSpace"
-import { Interior } from "./KPMG/enviroment/interior"
+import { SceneController } from "./congif/core/sceneController"
+import { SceneLocations } from "./congif/enums"
+import { SceneEntities } from "./congif/scenes"
+import { KBCulDeSac } from "./KB-HOMES/environment/kb-cul-de-sac"
+import { KBInterior } from "./KB-HOMES/environment/kb-interior"
+import { KPMGBank } from "./KPMG/environment/kpmg-bank"
+import { KPMGEvent } from "./KPMG/environment/kpmg-eventSpace"
+import { KPMGInterior } from "./KPMG/environment/kpmg-interior"
+import { KPMGRetail } from "./KPMG/environment/kpmg-retail"
+
 
 
 class GameController {
@@ -11,9 +15,12 @@ class GameController {
 
     constructor() {
         SceneController.loadScene(SceneLocations.Exterior)
-        Interior.preload()
-        Bank.preload()
-        Event.preload()
+        KPMGInterior.preload()
+        KPMGBank.preload()
+        KPMGEvent.preload()
+        KPMGRetail.preload()
+        KBInterior.preload()
+        KBCulDeSac.preload()
     }
 
 }
