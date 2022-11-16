@@ -7,6 +7,6 @@ export enum SceneLocations {
     KPMGEvent,
     KPMGRetail,
     //KB-HOMES
-    KBInterior,
+    KBInterior1860,
     KBCulDeSac,
 }

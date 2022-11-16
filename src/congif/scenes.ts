@@ -1,5 +1,5 @@
 import { KBCulDeSac } from "src/KB-HOMES/environment/kb-cul-de-sac"
-import { KBInterior } from "src/KB-HOMES/environment/kb-interior"
+import { KBInterior1860 } from "src/KB-HOMES/environment/kb-interior-1860"
 import { KPMGBank } from "src/KPMG/environment/kpmg-bank"
 import { KPMGEvent } from "src/KPMG/environment/kpmg-eventSpace"
 import { KPMGInterior } from "src/KPMG/environment/kpmg-interior"
@@ -19,7 +19,7 @@ export const SceneEntities: {[key: number] : Scene } = {
     [SceneLocations.KPMGRetail]: KPMGRetail,
     //KB-HOMES
     [SceneLocations.KBCulDeSac]: KBCulDeSac,
-    [SceneLocations.KBInterior]: KBInterior,
+    [SceneLocations.KBInterior1860]: KBInterior1860,
 }
 
 export const getSceneEntityFromLocation = (location: SceneLocations) : (Scene | undefined) => {

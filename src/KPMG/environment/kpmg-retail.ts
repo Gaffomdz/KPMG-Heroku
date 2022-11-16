@@ -1,4 +1,4 @@
-import { Dash_Material, Dash_Wait } from "dcldash"
+import { Dash_Material, Dash_Tweaker, Dash_Wait } from "dcldash"
 import { Scene } from "../../congif/core/scene"
 import { SceneController } from "../../congif/core/sceneController"
 import { SceneLocations } from "../../congif/enums"
@@ -9,6 +9,9 @@ class KPMGRetailInstance extends Scene {
     //Environment
     private retailSpaceMainGeo = new Entity()
     private retailFurniture = new Entity()
+    private furnitureCol = new Entity()
+    private retailClickeable = new Entity()
+    private flowerDisplay = new Entity()
     //utils
     private exitDoor =new ExitPlane()
 
@@ -18,10 +21,20 @@ class KPMGRetailInstance extends Scene {
         this.addComponent(new GLTFShape('models/KPMG/retail/KPMG_Retail_collider.glb'))
         this.retailSpaceMainGeo.addComponent(new GLTFShape('models/KPMG/retail/KPMG_Retail_geo.glb'))
         this.retailFurniture.addComponent(new GLTFShape('models/KPMG/retail/KPMG_Retail_furniture.glb'))
+        this.furnitureCol.addComponent(new GLTFShape('models/KPMG/retail/KPMG_Retail_furniture_collider.glb'))
+        this.retailClickeable.addComponent(new GLTFShape('models/KPMG/retail/KPMG_Retail_clickable_collider.glb'))
+        this.flowerDisplay.addComponent(new GLTFShape('models/KPMG/retail/KPMG_Retail_flower_display.glb'))
 
         this.retailSpaceMainGeo.setParent(this)
         this.retailFurniture.setParent(this)
+        this.furnitureCol.setParent(this)
+        this.retailClickeable.setParent(this)
+        this.flowerDisplay.setParent(this)
         this.exitDoorPortal()
+        
+    }
+    clickeable(){
+        
     }
     preload() {
         engine.addEntity(this)
@@ -53,7 +66,7 @@ class KPMGRetailInstance extends Scene {
             new Vector3(17.48,0.98,6.15),
             new Vector3(32.15, 1.33, 4.72),
         )
-
+        
 
     }
     goInterior(position: Vector3, direction: Vector3) {

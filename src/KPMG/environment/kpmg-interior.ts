@@ -1,3 +1,4 @@
+import { NPC, NPCDelay } from "@dcl/npc-scene-utils";
 import { Dash_Material, Dash_Tweaker, Dash_Wait } from "dcldash";
 import { Scene } from "../../congif/core/scene"
 import { SceneController } from "../../congif/core/sceneController"
@@ -27,10 +28,34 @@ class KPMGInteriorInstance extends Scene {
     private bankDoor = new ExitPlane()
     private eventSpaceDoor = new ExitPlane()
     private retailSpaceDoor = new ExitPlane()
+    //npc
+    private npc = new NPC({
+        position: new Vector3(8.66, 0.28, 21.31),
+        scale: new Vector3(1.000, 1.000, 1.000),
+        rotation: new Quaternion().setEuler(0.000, 66.439, 0.000),
+    }, 'models/KPMG/npc/kpmg_npc.glb',
 
+        () => {
+            this.npc.playAnimation('stash_idle')
+            // animation
+            const dummyent = new Entity()
+            dummyent.addComponent(
+                new NPCDelay(0.5, () => {
+                    this.npc.playAnimation('stash_talking')
+                })
+            )
+            engine.addEntity(dummyent)
 
-
-
+        },
+        {
+            faceUser: true,
+            reactDistance: 2,
+            hoverText: 'Talk',
+            onWalkAway: () => {
+                this.npc.playAnimation('Idle', true, 2)
+            }
+        }
+    )
     constructor() {
         super(SceneLocations.KPMGInterior)
         this.addComponent(new GLTFShape('models/KPMG/interior/KPMG_interior_collider.glb'))
@@ -48,6 +73,7 @@ class KPMGInteriorInstance extends Scene {
         this.interiorDoorFx.setParent(this)
         this.interiorEventDoor.setParent(this)
         this.interiorRetailDoor.setParent(this)
+        this.npc.setParent(this)
 
         this.interiorDoorPortal1()
         this.interiorDoorPortal2()
@@ -235,8 +261,8 @@ class KPMGInteriorInstance extends Scene {
             rotation: new Quaternion().setEuler(360.000, 212.000, 1.000),
         }))
         this.bankDoor.onCameraEnter = () => this.enterBank(
-            new Vector3(15.23,2.30,74.34),
-            new Vector3(16.34,2,48.44),
+            new Vector3(15.23, 2.30, 74.34),
+            new Vector3(16.34, 2, 48.44),
         )
 
 
@@ -253,8 +279,8 @@ class KPMGInteriorInstance extends Scene {
             rotation: new Quaternion().setEuler(360.000, 257.000, 1.000),
         }))
         this.eventSpaceDoor.onCameraEnter = () => this.enterEventSpace(
-            new Vector3(16.71,1.28,10.06),
-            new Vector3(15.92,1.28,19.20),
+            new Vector3(16.71, 1.28, 10.06),
+            new Vector3(15.92, 1.28, 19.20),
         )
     }
     retailSpacePortal() {
@@ -264,13 +290,13 @@ class KPMGInteriorInstance extends Scene {
             ExitPlane.addComponent(Dash_Material.transparent())
         })
         this.retailSpaceDoor.addComponentOrReplace(new Transform({
-            position: new Vector3(3.11,0.98,32.96),
+            position: new Vector3(3.11, 0.98, 32.96),
             scale: new Vector3(3.000, 5.000, 5.000),
             rotation: new Quaternion().setEuler(360.000, 257.000, 1.000),
         }))
         this.retailSpaceDoor.onCameraEnter = () => this.enterRetailSpace(
-            new Vector3(71.43,1.08,20.44),
-            new Vector3(69.30,1.08,20.50),
+            new Vector3(71.43, 1.08, 20.44),
+            new Vector3(69.30, 1.08, 20.50),
         )
     }
     exit(position: Vector3, direction: Vector3, doornumber: number) {
