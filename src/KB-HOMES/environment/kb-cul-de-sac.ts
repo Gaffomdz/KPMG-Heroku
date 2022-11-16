@@ -11,7 +11,6 @@ class KBCulDeSacInstance extends Scene {
     //environment
     private kBCulDeSacGeo = new Entity()
     //utils
-    private triggerDoor1 = new ExitPlane()
     private triggerDoor1860 = new ExitPlane()
 
     constructor() {
@@ -22,31 +21,8 @@ class KBCulDeSacInstance extends Scene {
         this.kBCulDeSacGeo.setParent(this)
 
         this.triggerDoors1860()
-        this.triggerPortals()
 
     }
-    triggerPortals(){
-        [this.triggerDoor1, 
-            ].forEach(ExitPlane => {
-                ExitPlane.setParent(this)
-                ExitPlane.addComponent(Dash_Material.transparent())
-            })
-    
-            this.triggerDoor1.addComponentOrReplace(new Transform({
-                position: new Vector3(18.50,1.68,50.90),
-                scale: new Vector3(4.000, 4.000, 5.000),
-                rotation: new Quaternion().setEuler(1.000, 100.000, 2.000),
-            }))
-            this.triggerDoor1.onCameraEnter = () => this.enterExterior(
-                new Vector3(24.73, 0.98, 40.71),
-                new Vector3(24.22, 0.98, 39.74),
-            )
-    }
-    enterExterior(position: Vector3, direction: Vector3){
-        SceneController.loadScene(SceneLocations.Exterior)
-        movePlayerToVector3(position, direction)
-    }
-    
     preload() {
         engine.addEntity(this)
         log('preloaded culdesac!')

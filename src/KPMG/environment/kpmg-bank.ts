@@ -10,6 +10,8 @@ class KPMGBankInstance extends Scene {
     private bankMainGeo = new Entity()
     private bankExitDoor= new Entity()
     private bankAnimatedObject = new Entity()
+    private bankFurniture = new Entity()
+    private bankFurnitureCols = new Entity()
     //utils
     private exitDoor =new ExitPlane()
 
@@ -22,9 +24,16 @@ class KPMGBankInstance extends Scene {
         this.bankExitDoor.addComponent(new GLTFShape('models/KPMG/bank/kpmg_bank_exit_door_1.glb'))
         this.bankAnimatedObject.addComponent(new GLTFShape('models/KPMG/bank/kpmg_bank_animated_object_1.glb'))
 
+        this.bankFurniture.addComponent(new GLTFShape('models/KPMG/bank/kpmg_bank_decor_main_geo_1.glb'))
+        this.bankFurnitureCols.addComponent(new GLTFShape('models/KPMG/bank/kpmg_bank_decor_colliders_1.glb'))
+
         this.bankMainGeo.setParent(this)
         this.bankExitDoor.setParent(this)
         this.bankAnimatedObject.setParent(this)
+
+        this.bankFurniture.setParent(this)
+        this.bankFurnitureCols.setParent(this)
+
         this.exitDoorPortal()
     }
     preload() {

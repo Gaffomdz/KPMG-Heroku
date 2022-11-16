@@ -39,14 +39,14 @@ class ExteriorInstance extends Scene {
         this.exteriorEntity.addComponent(new GLTFShape('models/KPMG/exterior/KPMG_exterior_Geo1B.glb'))
         this.exteriorInnerEntity.addComponent(new GLTFShape('models/KPMG/exterior/KPMG_exterior_innerGeo.glb'))
 
-        this.kbExterior.addComponent(new GLTFShape("models/KB-HOMES/exterior/KBH-exterior.glb"))
+        // this.kbExterior.addComponent(new GLTFShape("models/KB-HOMES/exterior/KBH-exterior.glb"))
 
         this.exteriorEntity.setParent(this)
         this.exteriorInnerEntity.setParent(this)
-        this.kbExterior.setParent(this)
+        // this.kbExterior.setParent(this)
 
         this.triggerPortalKPMG()
-        this.triggerPortalKBHomes()
+        // this.triggerPortalKBHomes()
     }
 
     triggerPortalKPMG() {
@@ -143,40 +143,40 @@ class ExteriorInstance extends Scene {
             rotation: new Quaternion().setEuler(0.000, 0.000, 0.000),
         }))
 
-        // this.triggerDoor9.onCameraEnter = () => this.enterKBHomes(
-        //     new Vector3(32.02, 1.68, 76.38),
-        //     new Vector3(31.21, 1.68, 67.06),
-        // )
-        // this.triggerDoor10.addComponentOrReplace(new Transform({
-        //     position: new Vector3(50, 2, 16.39),
-        //     scale: new Vector3(7.000, 4.000, 5.000),
-        //     rotation: new Quaternion().setEuler(0.000, 90.000, 0.000),
-        // }))
+        this.triggerDoor9.onCameraEnter = () => this.enterKBHomes(
+            new Vector3(32.02, 1.68, 76.38),
+            new Vector3(31.21, 1.68, 67.06),
+        )
+        this.triggerDoor10.addComponentOrReplace(new Transform({
+            position: new Vector3(50, 2, 16.39),
+            scale: new Vector3(7.000, 4.000, 5.000),
+            rotation: new Quaternion().setEuler(0.000, 90.000, 0.000),
+        }))
 
-        // this.triggerDoor10.onCameraEnter = () => this.enterKBHomes(
-        //     new Vector3(32.02, 1.68, 76.38),
-        //     new Vector3(31.21, 1.68, 67.06),
-        // )
-        // this.triggerDoor11.addComponentOrReplace(new Transform({
-        //     position: new Vector3(77.500, 2.800, 17.090),
-        //     scale: new Vector3(15.800, 4.000, 10.000),
-        //     rotation: new Quaternion().setEuler(0.000, 90.000, 0.000),
-        // }))
+        this.triggerDoor10.onCameraEnter = () => this.enterKBHomes(
+            new Vector3(32.02, 1.68, 76.38),
+            new Vector3(31.21, 1.68, 67.06),
+        )
+        this.triggerDoor11.addComponentOrReplace(new Transform({
+            position: new Vector3(77.500, 2.800, 17.090),
+            scale: new Vector3(15.800, 4.000, 10.000),
+            rotation: new Quaternion().setEuler(0.000, 90.000, 0.000),
+        }))
 
-        // this.triggerDoor11.onCameraEnter = () => this.enterKBHomes(
-        //     new Vector3(32.02, 1.68, 76.38),
-        //     new Vector3(31.21, 1.68, 67.06),
-        // )
+        this.triggerDoor11.onCameraEnter = () => this.enterKBHomes(
+            new Vector3(32.02, 1.68, 76.38),
+            new Vector3(31.21, 1.68, 67.06),
+        )
 
     }
     enterKPMG(position: Vector3, direction: Vector3) {
         SceneController.loadScene(SceneLocations.KPMGInterior)
         movePlayerToVector3(position, direction)
     }
-    // enterKBHomes(position: Vector3, direction: Vector3) {
-    //     SceneController.loadScene(SceneLocations.KBCulDeSac)
-    //     movePlayerToVector3(position, direction)
-    // }
+    enterKBHomes(position: Vector3, direction: Vector3) {
+        SceneController.loadScene(SceneLocations.KBCulDeSac)
+        movePlayerToVector3(position, direction)
+    }
 }
 
 
