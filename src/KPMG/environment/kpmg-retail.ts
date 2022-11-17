@@ -67,6 +67,7 @@ class KPMGRetailInstance extends Scene {
             new Vector3(32.15, 1.33, 4.72),
         )
         
+        
 
     }
     goInterior(position: Vector3, direction: Vector3) {
