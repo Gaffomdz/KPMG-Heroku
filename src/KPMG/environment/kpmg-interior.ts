@@ -1,5 +1,7 @@
 import { NPC, NPCDelay } from "@dcl/npc-scene-utils";
 import { Dash_Material, Dash_Tweaker, Dash_Wait } from "dcldash";
+import { passcall } from "src/utils/servercall";
+import { TriggerButton } from "src/utils/triggerButton";
 import { Scene } from "../../congif/core/scene"
 import { SceneController } from "../../congif/core/sceneController"
 import { SceneLocations } from "../../congif/enums"
@@ -28,6 +30,7 @@ class KPMGInteriorInstance extends Scene {
     private bankDoor = new ExitPlane()
     private eventSpaceDoor = new ExitPlane()
     private retailSpaceDoor = new ExitPlane()
+    private apicall = new TriggerButton()
     //npc
     private npc = new NPC({
         position: new Vector3(8.66, 0.28, 21.31),
@@ -65,6 +68,18 @@ class KPMGInteriorInstance extends Scene {
         this.interiorDoorFx.addComponent(new GLTFShape('models/KPMG/interior/KPMG_Interior_door_fx.glb'))
         this.interiorEventDoor.addComponent(new GLTFShape('models/KPMG/interior/KPMG_Interior_event_door.glb'))
         this.interiorRetailDoor.addComponent(new GLTFShape('models/KPMG/interior/KPMG_Interior_retail_door.glb'))
+        this.apicall.addComponentOrReplace(new Transform({
+            position: new Vector3(22.40,1.58,18.43),
+            scale: new Vector3(1, 1, 1)
+        }))
+        this.apicall.setMessage("Pass API")
+        this.apicall.addComponentOrReplace(new OnPointerDown(() => {
+            
+            passcall()
+            //log("this"+ passcall())
+
+
+    }))
 
 
         this.interior1Entity.setParent(this)
@@ -74,6 +89,7 @@ class KPMGInteriorInstance extends Scene {
         this.interiorEventDoor.setParent(this)
         this.interiorRetailDoor.setParent(this)
         this.npc.setParent(this)
+        this.apicall.setParent(this)
 
         this.interiorDoorPortal1()
         this.interiorDoorPortal2()
