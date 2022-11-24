@@ -5,6 +5,7 @@ import { SceneLocations } from "src/congif/enums"
 import { ExitPlane } from "src/utils/exitPlane"
 import { movePlayerToVector3 } from "src/utils/movePlayerToVector3"
 import { TriggerButton } from "src/utils/triggerButton"
+import { myNPC } from "../kb-npc"
 
 
 class KBCulDeSacInstance extends Scene {
@@ -45,6 +46,7 @@ class KBCulDeSacInstance extends Scene {
         this.triggerDoors1860()
         this.triggerDoors1989()
         this.createTriggerButtons()
+        this.createNPC()
     }
     preload() {
         engine.addEntity(this)
@@ -59,6 +61,10 @@ class KBCulDeSacInstance extends Scene {
                 scale: new Vector3(1, 1, 1)
             }))
         }, 5)
+    }
+    createNPC() {
+        engine.addEntity(myNPC)
+        myNPC.setParent(this)
     }
     triggerDoors1860() {
         [this.triggerDoor1860].forEach(ExitPlane => {

@@ -26,7 +26,13 @@ class KPMGInteriorInstance extends Scene {
     private interiorDoor6 = new ExitPlane()
     private interiorDoor7 = new ExitPlane()
     private interiorDoor8 = new ExitPlane()
-    
+    //labels
+
+    private label1 = new Entity()
+    private label2 = new Entity()
+    private label3 = new Entity()
+    private label4 = new Entity()
+
     //BankDoors
     private bankDoor = new ExitPlane()
     private eventSpaceDoor = new ExitPlane()
@@ -69,15 +75,15 @@ class KPMGInteriorInstance extends Scene {
         this.interiorDoorFx.addComponent(new GLTFShape('models/KPMG/interior/KPMG_Interior_door_fx.glb'))
         this.interiorEventDoor.addComponent(new GLTFShape('models/KPMG/interior/KPMG_Interior_event_door.glb'))
         this.interiorRetailDoor.addComponent(new GLTFShape('models/KPMG/interior/KPMG_Interior_retail_door.glb'))
-    //     this.apicall.addComponentOrReplace(new Transform({
-    //         position: new Vector3(22.40,1.58,18.43),
-    //         scale: new Vector3(1, 1, 1)
-    //     }))
-    //     this.apicall.setMessage("Pass API")
-    //     this.apicall.addComponentOrReplace(new OnPointerDown(() => {
-            
-    //         passcall()
-    // }))
+        //     this.apicall.addComponentOrReplace(new Transform({
+        //         position: new Vector3(22.40,1.58,18.43),
+        //         scale: new Vector3(1, 1, 1)
+        //     }))
+        //     this.apicall.setMessage("Pass API")
+        //     this.apicall.addComponentOrReplace(new OnPointerDown(() => {
+
+        //         passcall()
+        // }))
 
 
         this.interior1Entity.setParent(this)
@@ -100,7 +106,8 @@ class KPMGInteriorInstance extends Scene {
         this.bankDoorPortal()
         this.eventSpacePortal()
         this.retailSpacePortal()
-        
+        this.labels()
+
     }
     preload() {
         engine.addEntity(this)
@@ -275,13 +282,13 @@ class KPMGInteriorInstance extends Scene {
             scale: new Vector3(4.000, 4.000, 5.000),
             rotation: new Quaternion().setEuler(360.000, 212.000, 1.000),
         }))
-        
+
         this.bankDoor.onCameraEnter = () => this.enterBank(
             new Vector3(15.23, 2.30, 74.34),
             new Vector3(16.34, 2, 48.44),
         )
 
-        
+
     }
     eventSpacePortal() {
         [this.eventSpaceDoor,
@@ -332,7 +339,36 @@ class KPMGInteriorInstance extends Scene {
         SceneController.loadScene(SceneLocations.KPMGRetail)
         movePlayerToVector3(position, direction)
     }
-    
+    labels() {
+        [this.label1, this.label2, this.label3, this.label4
+        ].forEach(label => {
+            label.setParent(this)
+            label.addComponent(new GLTFShape("models/KPMG/interior/ComingSoon_Sign.glb"))
+
+        })
+        this.label1.addComponent(new Transform({
+            position: new Vector3(15.080, 2.300, 46.020),
+            scale: new Vector3(1.400, 1.400, 1.400),
+            rotation: new Quaternion().setEuler(360.000, 248.000, 360.000),
+        }))
+        this.label2.addComponent(new Transform({
+            position: new Vector3(2.080, 2.300, 15.100),
+            scale: new Vector3(1.400, 1.400, 1.400),
+            rotation: new Quaternion().setEuler(360.000, 158.000, 360.000),
+        }))
+        this.label3.addComponent(new Transform({
+            position: new Vector3(14.810, 2.300, 2.320),
+            scale: new Vector3(1.400, 1.400, 1.400),
+            rotation: new Quaternion().setEuler(360.000, 113.000, 360.000),
+        }))
+        this.label4.addComponent(new Transform({
+            position: new Vector3(15.080, 2.300, 46.020),
+            scale: new Vector3(1.400, 1.400, 1.400),
+            rotation: new Quaternion().setEuler(360.000, 248.000, 360.000),
+        }))
+
+    }
+
 
 }
 
