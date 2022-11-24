@@ -11,6 +11,11 @@ class KPMGEventInstance extends Scene {
     private bankExitDoor = new Entity()
     //Utils
     private exitDoor = new ExitPlane()
+    //music
+    private eventMusic = new AudioClip('sounds/Inspiring Chill Electronica/Inspiring Chill Electronica.mp3')
+    private sourceMusicEvent = new AudioSource(this.eventMusic)
+    private music = new Entity()
+
 
 
     constructor() {
@@ -18,9 +23,16 @@ class KPMGEventInstance extends Scene {
         this.addComponent(new GLTFShape('models/KPMG/eventSpace/kpmg_events_collider_1.glb'))
         this.eventSpaceMainGeo.addComponent(new GLTFShape('models/KPMG/eventSpace/kpmg_events_main_geo_1.glb'))
         this.bankExitDoor.addComponent(new GLTFShape('models/KPMG/eventSpace/kpmg_events_exit_door_1.glb'))
+        this.music.addComponent(this.sourceMusicEvent)
+        this.sourceMusicEvent.playing = true
+        this.sourceMusicEvent.volume = 1
+
 
         this.eventSpaceMainGeo.setParent(this)
         this.bankExitDoor.setParent(this)
+        this.music.setParent(this)
+
+
         this.exitDoorPortal()
     }
     preload() {

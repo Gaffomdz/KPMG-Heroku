@@ -9,4 +9,5 @@ export enum SceneLocations {
     //KB-HOMES
     KBInterior1860,
     KBCulDeSac,
+    KBInterior1989
 }
