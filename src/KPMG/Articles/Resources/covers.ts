@@ -1,4 +1,4 @@
-const article1coverT = new Texture('images/Article1/1.png')
+const article1coverT = new Texture('images/Article1/comingsoon.png')
 export const article1cover = new Material()
 article1cover.albedoTexture = article1coverT
 

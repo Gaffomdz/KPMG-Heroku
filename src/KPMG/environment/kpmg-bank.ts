@@ -22,9 +22,12 @@ class KPMGBankInstance extends Scene {
     private bankFurnitureCols = new Entity()
     //articles
     private firstarticle = new dynamicArticle1floor2()
-    private prompt1 = new TriggerPrompts()
     public articlenum = 0
     public pagenum = 0
+    private prompt1 = new TriggerPrompts()
+    private prompt2 = new TriggerPrompts()
+    private prompt3 = new TriggerPrompts()
+    private prompt4 = new TriggerPrompts()
     //buttons
     private a1bs = new ButtonStop()
     private a1bn = new ButtonNext()
@@ -121,21 +124,42 @@ class KPMGBankInstance extends Scene {
         //engine.removeEntity(this.firstarticle.page8)
     }
     createTriggerPrompts() {
-        [this.prompt1,
+        [this.prompt1, this.prompt2, this.prompt3, this.prompt4
         ].forEach(triggerPrompts => {
             triggerPrompts.setParent(this)
         })
 
         this.prompt1.addComponentOrReplace(new Transform({
-            position: new Vector3(11.163, 3.236, 51.249),
-            scale: new Vector3(1.241, 2.332, 1.900),
-            rotation: new Quaternion().setEuler(359.800, 271.000, 180.000),
+            position: new Vector3(11.160, 3.236, 51.248),
+            scale: new Vector3(1.361, 2.392, 1.910),
+            rotation: new Quaternion().setEuler(359.800, 269.000, 180.000),
         }))
         this.prompt1.addComponent(article1page3)
         this.prompt1.onClick = () => this.createArticles()
-        
-       
 
+
+        this.prompt2.addComponentOrReplace(new Transform({
+            position: new Vector3(11.160, 3.236, 41.128),
+            scale: new Vector3(1.361, 2.392, 1.910),
+            rotation: new Quaternion().setEuler(359.800, 269.000, 180.000),
+        }))
+        this.prompt2.addComponent(article1page3)
+
+        this.prompt3.addComponentOrReplace(new Transform({
+            position: new Vector3(20.845, 3.236, 41.116),
+            scale: new Vector3(1.361, 2.392, 1.910),
+            rotation: new Quaternion().setEuler(360.000, 90.200, 180.000),
+        }))
+        this.prompt3.addComponent(article1page3)
+
+        this.prompt4.addComponentOrReplace(new Transform({
+            position: new Vector3(20.845, 3.236, 51.256),
+            scale: new Vector3(1.361, 2.392, 1.910),
+            rotation: new Quaternion().setEuler(360.000, 90.200, 180.000),
+        }))
+        this.prompt4.addComponent(article1page3)
+
+        Dash_Tweaker(this.prompt2)
     }
     createArticles() {
 
@@ -147,14 +171,14 @@ class KPMGBankInstance extends Scene {
             scale: new Vector3(1.241, 2.332, 1.900),
             rotation: new Quaternion().setEuler(359.800, 271.000, 180.000),
         }))
-        
+
         this.pagenum = 1
-            this.firstarticle.load()
+        this.firstarticle.load()
 
         log(this.firstarticle.getComponent(Transform).position)
 
         this.a1CreateButtons()
-    
+
     }
     a1CreateButtons() {
         engine.addEntity(this.a1bs)
@@ -172,12 +196,12 @@ class KPMGBankInstance extends Scene {
         }))
 
         this.a1bn.addComponentOrReplace(new OnPointerDown(() => {
-        
-                log('clicked!')
-                this.firstarticle.nextPage()
-            
-            
-            
+
+            log('clicked!')
+            this.firstarticle.nextPage()
+
+
+
         }, {
             hoverText: 'Next Page'
         }))
@@ -191,15 +215,15 @@ class KPMGBankInstance extends Scene {
         }))
 
         this.a1bs.addComponentOrReplace(new OnPointerDown(() => {
-            
-                this.firstarticle.onExit(this.firstarticle.currentEntity)
-                
+
+            this.firstarticle.onExit(this.firstarticle.currentEntity)
 
 
-                engine.removeEntity(this.a1bn)
-                engine.removeEntity(this.a1bp)
-                engine.removeEntity(this.a1bs)
-            
+
+            engine.removeEntity(this.a1bn)
+            engine.removeEntity(this.a1bp)
+            engine.removeEntity(this.a1bs)
+
 
         }, {
             hoverText: 'Close Article'
@@ -215,18 +239,18 @@ class KPMGBankInstance extends Scene {
         )
 
         this.a1bp.addComponentOrReplace(new OnPointerDown(() => {
-            
-                this.firstarticle.prevPage()
-            
-          
-                this.firstarticle.prevPage()
-            
+
+            this.firstarticle.prevPage()
+
+
+            this.firstarticle.prevPage()
+
         }, {
             hoverText: 'Previous Page'
         }))
-        
+
     }
-   
+
 
 }
 

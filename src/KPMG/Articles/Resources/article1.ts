@@ -1,33 +1,33 @@
 
-const article1page1tex = new Texture('images/Article1/1.png')
+const article1page1tex = new Texture('images/Article1/comingsoon.png')
 export const article1page1 = new Material()
 article1page1.albedoTexture = article1page1tex
 
-const article1page2tex = new Texture('images/Article1/2.png')
+const article1page2tex = new Texture('images/Article1/comingsoon.png')
 export const article1page2 = new Material()
 article1page2.albedoTexture = article1page2tex
 
-const article1page3tex = new Texture('images/Article1/3.png')
+const article1page3tex = new Texture('images/Article1/comingsoon.png')
 export const article1page3 = new Material()
 article1page3.albedoTexture = article1page3tex
 
-const article1page4tex = new Texture('images/Article1/4.png')
+const article1page4tex = new Texture('images/Article1/comingsoon.png')
 export const article1page4 = new Material()
 article1page4.albedoTexture = article1page4tex
 
-const article1page5tex = new Texture('images/Article1/5.png')
+const article1page5tex = new Texture('images/Article1/comingsoon.png')
 export const article1page5 = new Material()
 article1page5.albedoTexture = article1page5tex
 
-const article1page6tex = new Texture('images/Article1/6.png')
+const article1page6tex = new Texture('images/Article1/comingsoon.png')
 export const article1page6 = new Material()
 article1page6.albedoTexture = article1page6tex
 
-const article1page7tex = new Texture('images/Article1/7.png')
+const article1page7tex = new Texture('images/Article1/comingsoon.png')
 export const article1page7 = new Material()
 article1page7.albedoTexture = article1page7tex
 
-const article1page8tex = new Texture('images/Article1/8.png')
+const article1page8tex = new Texture('images/Article1/comingsoon.png')
 export const article1page8 = new Material()
 article1page8.albedoTexture = article1page8tex
 
