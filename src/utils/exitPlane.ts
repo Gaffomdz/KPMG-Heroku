@@ -23,6 +23,9 @@ export class ExitPlane extends Entity {
                 log('triggered!')
                 this.onCameraEnter()
                 }
+                
+                
+                
               }
             )
           )

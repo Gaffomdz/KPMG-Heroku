@@ -14,7 +14,7 @@ class KBCulDeSacInstance extends Scene {
     private kBCulDeSacGeo = new Entity()
     private KbCulDeSacLandScape = new Entity()
     private elevation1860 = new Entity()
-    private elevation2597 = new Entity()
+    private elevation2345 = new Entity()
     private elevation1989 = new Entity()
 
     //utils
@@ -28,23 +28,29 @@ class KBCulDeSacInstance extends Scene {
     private triggerCraftsmanButton1989 = new TriggerButton()
     private triggerGeneralButton1989 = new TriggerButton()
 
+    private triggerDoor2345 = new ExitPlane()
+    private triggerSpanishButton2345 = new TriggerButton()
+    private triggerCraftsmanButton2345 = new TriggerButton()
+    private triggerFarmHouseButton2345 = new TriggerButton()
+
     constructor() {
         super(SceneLocations.KBCulDeSac)
         this.addComponent(new GLTFShape("models/KB-HOMES/Cul-de-Sac/KBH_Cul-de-sac_collider.glb"))
         this.kBCulDeSacGeo.addComponent(new GLTFShape('models/KB-HOMES/Cul-de-Sac/KBH_Cul-de-sac_geo.glb'))
         this.KbCulDeSacLandScape.addComponent(new GLTFShape("models/KB-HOMES/Cul-de-Sac/KBH_Cul-de-sac_landscape.glb"))
-        this.elevation1860.addComponent(new GLTFShape('models/KB-HOMES/Cul-de-Sac/KBH_Elevation_1860_1.glb'))
-        this.elevation2597.addComponent(new GLTFShape('models/KB-HOMES/Cul-de-Sac/KBH_Elevation_2597_1.glb'))
-        this.elevation1989.addComponent(new GLTFShape('models/KB-HOMES/Cul-de-Sac/KBH_Elevation_1989_1.glb'))
+        this.elevation1860.addComponent(new GLTFShape('models/KB-HOMES/Cul-de-Sac/elevation_1860/KBH_Elevation_1860_1.glb'))
+        this.elevation2345.addComponent(new GLTFShape('models/KB-HOMES/Cul-de-Sac/elevation_2345/KBhomes_2345_elevation_farmhouse.glb'))
+        this.elevation1989.addComponent(new GLTFShape('models/KB-HOMES/Cul-de-Sac/elevation_1989/KBhomes_1989_elevation_farmhouse.glb'))
 
         this.kBCulDeSacGeo.setParent(this)
         this.KbCulDeSacLandScape.setParent(this)
         this.elevation1860.setParent(this)
-        this.elevation2597.setParent(this)
+        this.elevation2345.setParent(this)
         this.elevation1989.setParent(this)
 
         this.triggerDoors1860()
         this.triggerDoors1989()
+        this.triggerDoors2345()
         this.createTriggerButtons()
         this.createNPC()
     }
@@ -107,11 +113,59 @@ class KBCulDeSacInstance extends Scene {
         SceneController.loadScene(SceneLocations.KBInterior1989)
         movePlayerToVector3(position, direction)
     }
+    triggerDoors2345() {
+        [this.triggerDoor2345].forEach(ExitPlane => {
+            ExitPlane.setParent(this)
+            ExitPlane.addComponent(Dash_Material.transparent())
+        })
+
+        this.triggerDoor2345.addComponentOrReplace(new Transform({
+            position: new Vector3(33.140, 1.180, 15.270),
+            scale: new Vector3(2.600, 4.700, 1.000),
+            rotation: new Quaternion().setEuler(1.000, 356.000, 272.000),
+        }))
+        this.triggerDoor2345.onCameraEnter = () => this.enter2345(
+            new Vector3(32.74, 1.18, 38.03),
+            new Vector3(32.44, 1.18, 34.47),
+        )
+        Dash_Tweaker(this.triggerDoor2345)
+
+    }
+    enter2345(position: Vector3, direction: Vector3) {
+        SceneController.loadScene(SceneLocations.KBInterior2345)
+        movePlayerToVector3(position, direction)
+    }
     createTriggerButtons() {
         [this.triggerSpanishButton1989, this.triggerCraftsmanButton1989, this.triggerGeneralButton1989,
-        this.triggerGeneralButton1860, this.triggerElevation1860Button2, this.triggerElevation1860Button3].forEach(models => {
+        this.triggerGeneralButton1860, this.triggerElevation1860Button2, this.triggerElevation1860Button3,
+        this.triggerFarmHouseButton2345, this.triggerCraftsmanButton2345, this.triggerSpanishButton2345].forEach(models => {
             models.setParent(this)
         })
+        //1860
+        this.triggerGeneralButton1860.addComponentOrReplace(new Transform({
+            position: new Vector3(44.200, 0.330, 27.630),
+            scale: new Vector3(0.400, 0.300, 0.200),
+            rotation: new Quaternion().setEuler(350.000, 136.048, 360.000),
+        }))
+        this.triggerGeneralButton1860.onClick = () => this.general1860()
+        this.triggerGeneralButton1860.setMessage("Main")
+
+        this.triggerElevation1860Button2.addComponentOrReplace(new Transform({
+            position: new Vector3(43.800, 0.330, 27.230),
+            scale: new Vector3(0.400, 0.300, 0.200),
+            rotation: new Quaternion().setEuler(350.000, 136.048, 360.000),
+        }))
+        this.triggerElevation1860Button2.onClick = () => this.ranch1860()
+        this.triggerElevation1860Button2.setMessage("Ranch")
+
+        this.triggerElevation1860Button3.addComponentOrReplace(new Transform({
+            position: new Vector3(43.400, 0.330, 26.830),
+            scale: new Vector3(0.400, 0.300, 0.200),
+            rotation: new Quaternion().setEuler(350.000, 136.048, 360.000),
+        }))
+        this.triggerElevation1860Button3.onClick = () => this.springMountain1860()
+        this.triggerElevation1860Button3.setMessage("Spring Mountain")
+
         //1989
         this.triggerSpanishButton1989.addComponentOrReplace(new Transform({
             position: new Vector3(20.400, 0.480, 26.070),
@@ -134,56 +188,74 @@ class KBCulDeSacInstance extends Scene {
             scale: new Vector3(0.400, 0.300, 0.200),
             rotation: new Quaternion().setEuler(90.000, 126.048, 0.000),
         }))
-        this.triggerGeneralButton1989.onClick = () => this.general1989()
-        this.triggerGeneralButton1989.setMessage("General")
-        //1860
-        this.triggerGeneralButton1860.addComponentOrReplace(new Transform({
-            position: new Vector3(44.200, 0.330, 27.630),
-            scale: new Vector3(0.400, 0.300, 0.200),
-            rotation: new Quaternion().setEuler(350.000, 136.048, 360.000),
-        }))
-        this.triggerGeneralButton1860.onClick = () => this.general1860()
-        this.triggerGeneralButton1860.setMessage("Option 1")
+        this.triggerGeneralButton1989.onClick = () => this.farmhouse1989()
+        this.triggerGeneralButton1989.setMessage("Farm House")
 
-        this.triggerElevation1860Button2.addComponentOrReplace(new Transform({
-            position: new Vector3(43.800, 0.330, 27.230),
+        //2345
+        this.triggerSpanishButton2345.addComponentOrReplace(new Transform({
+            position: new Vector3(35.080, 0.290, 22.600),
             scale: new Vector3(0.400, 0.300, 0.200),
-            rotation: new Quaternion().setEuler(350.000, 136.048, 360.000),
+            rotation: new Quaternion().setEuler(90.000, 81.048, 0.000),
         }))
-        this.triggerElevation1860Button2.onClick = () => this.option21860()
-        this.triggerElevation1860Button2.setMessage("Option 2")
+        this.triggerSpanishButton2345.onClick = () => this.spanish2345()
+        this.triggerSpanishButton2345.setMessage("Spanish")
 
-        this.triggerElevation1860Button3.addComponentOrReplace(new Transform({
-            position: new Vector3(43.400, 0.330, 26.830),
+        this.triggerCraftsmanButton2345.addComponentOrReplace(new Transform({
+            position: new Vector3(34.680, 0.290, 22.500),
             scale: new Vector3(0.400, 0.300, 0.200),
-            rotation: new Quaternion().setEuler(350.000, 136.048, 360.000),
+            rotation: new Quaternion().setEuler(90.000, 81.048, 0.000),
         }))
-        this.triggerElevation1860Button3.onClick = () => this.option31860()
-        this.triggerElevation1860Button3.setMessage("Option 3")
+        this.triggerCraftsmanButton2345.onClick = () => this.craftsman2345()
+        this.triggerCraftsmanButton2345.setMessage("Craftsman")
 
-        
+        this.triggerFarmHouseButton2345.addComponentOrReplace(new Transform({
+            position: new Vector3(34.280, 0.290, 22.460),
+            scale: new Vector3(0.400, 0.300, 0.200),
+            rotation: new Quaternion().setEuler(90.000, 81.048, 0.000),
+        }))
+        this.triggerFarmHouseButton2345.onClick = () => this.farmhouse2345()
+        this.triggerFarmHouseButton2345.setMessage("Farm House")
+
 
     }
+    //1860
+    general1860() {
+        this.elevation1860.addComponentOrReplace(new GLTFShape('models/KB-HOMES/Cul-de-Sac/elevation_1860/KBH_Elevation_1860_1.glb'))
+    }
+    ranch1860() {
+        this.elevation1860.addComponentOrReplace(new GLTFShape('models/KB-HOMES/Cul-de-Sac/elevation_1860/KBhomes_1860_elevation_ranch.glb'))
+    }
+    springMountain1860() {
+        this.elevation1860.addComponentOrReplace(new GLTFShape('models/KB-HOMES/Cul-de-Sac/elevation_1860/KBhomes_1860_elevation_spring_mountain.glb'))
+    }
+
+    //1989
     spanish1989() {
         log("spanish house")
-        this.elevation1989.addComponentOrReplace(new GLTFShape("models/KB-HOMES/Cul-de-Sac/KBhomes_1989_elevation_spanish.glb"))
+        this.elevation1989.addComponentOrReplace(new GLTFShape("models/KB-HOMES/Cul-de-Sac/elevation_1989/KBhomes_1989_elevation_spanish.glb"))
     }
     craftsman1989() {
         log("craftsman house")
-        this.elevation1989.addComponentOrReplace(new GLTFShape("models/KB-HOMES/Cul-de-Sac/KBhomes_1989_elevation_craftsman.glb"))
+        this.elevation1989.addComponentOrReplace(new GLTFShape("models/KB-HOMES/Cul-de-Sac/elevation_1989/KBhomes_1989_elevation_craftsman.glb"))
     }
-    general1989() {
-        log("general house")
-        this.elevation1989.addComponentOrReplace(new GLTFShape('models/KB-HOMES/Cul-de-Sac/KBH_Elevation_1989_1.glb'))
+    farmhouse1989() {
+        log("farm house")
+        this.elevation1989.addComponentOrReplace(new GLTFShape('models/KB-HOMES/Cul-de-Sac/elevation_1989/KBhomes_1989_elevation_farmhouse.glb'))
     }
-    general1860() {
-        this.elevation1860.addComponentOrReplace(new GLTFShape('models/KB-HOMES/Cul-de-Sac/KBH_Elevation_1860_1.glb'))
+
+    //2345
+
+    spanish2345() {
+        log("spanish house")
+        this.elevation2345.addComponentOrReplace(new GLTFShape("models/KB-HOMES/Cul-de-Sac/elevation_2345/KBhomes_2345_elevation_spanish.glb"))
     }
-    option21860() {
-        this.elevation1860.addComponentOrReplace(new GLTFShape('models/KB-HOMES/Cul-de-Sac/KBH_Elevation_1860_2.glb'))
+    craftsman2345() {
+        log("craftsman house")
+        this.elevation2345.addComponentOrReplace(new GLTFShape("models/KB-HOMES/Cul-de-Sac/elevation_2345/KBhomes_2345_elevation_craftsman.glb"))
     }
-    option31860() {
-        this.elevation1860.addComponentOrReplace(new GLTFShape('models/KB-HOMES/Cul-de-Sac/KBH_Elevation_1860_3.glb'))
+    farmhouse2345() {
+        log("farm house")
+        this.elevation2345.addComponentOrReplace(new GLTFShape('models/KB-HOMES/Cul-de-Sac/elevation_2345/KBhomes_2345_elevation_farmhouse.glb'))
     }
 }
 

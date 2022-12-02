@@ -110,7 +110,6 @@ export class dynamicArticle1floor2 extends Entity {
             rotation: new Quaternion().setEuler(359.800, 271.000, 180.000),
         }))
         //engine.addEntity(entityNew)
-        //Dash_Tweaker(entityNew)
 
         entityOld.addComponentOrReplace(new Transform({
             position: new Vector3(0, 0, 0),

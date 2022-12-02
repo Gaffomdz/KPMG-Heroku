@@ -159,7 +159,6 @@ class KPMGBankInstance extends Scene {
         }))
         this.prompt4.addComponent(article1page3)
 
-        Dash_Tweaker(this.prompt2)
     }
     createArticles() {
 

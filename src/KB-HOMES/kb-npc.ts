@@ -19,7 +19,6 @@ export const myNPC = new NPC({
     )
     engine.addEntity(dummyent)
     myNPC.talk(kbDialog)
-    Dash_Tweaker(myNPC)
 
   },
   {
